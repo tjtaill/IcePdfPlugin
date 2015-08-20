@@ -9,8 +9,27 @@
     </ACTION>
     <ACTION NAME="icepdf-open-pdf">
         <CODE>
-            icePdfViewer = w.getDockable("icepdf-viewer");
+            wm.showDockableWindow("icepdf-viewer");
+            icePdfViewer = wm.getDockableWindow("icepdf-viewer");
             icePdfViewer.openPdf(buffer);
+        </CODE>
+    </ACTION>
+    <ACTION NAME="icepdf-sync-pdf-location">
+        <CODE>
+            icePdfViewer = wm.getDockableWindow("icepdf-viewer");
+            icePdfViewer.syncPdfLocation(textArea);
+        </CODE>
+    </ACTION>
+    <ACTION NAME="icepdf-search-selected">
+        <CODE>
+            icePdfViewer = wm.getDockableWindow("icepdf-viewer");
+            icePdfViewer.searchSelected(textArea);
+        </CODE>
+    </ACTION>
+    <ACTION NAME="icepdf-sync-text-location">
+        <CODE>
+            icePdfViewer = wm.getDockableWindow("icepdf-viewer");
+            icePdfViewer.syncTextLocation(textArea);
         </CODE>
     </ACTION>
 </ACTIONS>

@@ -20,16 +20,19 @@ plugin.icepdf.IcePdfPlugin.jars=\
     icepdf-viewer.jar \
     icepdf-core.jar
 
-
-
-
 # Menu
 plugin.icepdf.IcePdfPlugin.menu=\
   icepdf-viewer-show \
-  icepdf-open-pdf
+  icepdf-open-pdf \
+  icepdf-sync-pdf-location \
+  icepdf-sync-text-location \
+  icepdf-search-selected
 
 icepdf-viewer-show.label=Show IcePdf Viewer
 icepdf-open-pdf.label=Open Associated Pdf
+icepdf-sync-pdf-location.label=Sync Pdf Location
+icepdf-sync-text-location.label=Sync Text Location
+icepdf-search-selected.label=Search Selected
 
 # Dockable
 icepdf-viewer.title=IcePdf Viewer
