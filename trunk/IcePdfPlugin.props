@@ -1,0 +1,35 @@
+plugin.icepdf.IcePdfPlugin.activate=defer
+plugin.icepdf.IcePdfPlugin.author=troy
+plugin.icepdf.IcePdfPlugin.description=IcePdf dockable viewer plugin.
+plugin.icepdf.IcePdfPlugin.docs=docs/IcePdfPlugin.html
+plugin.icepdf.IcePdfPlugin.longdescription=description.html
+plugin.icepdf.IcePdfPlugin.name=IcePdfPlugin
+plugin.icepdf.IcePdfPlugin.usePluginHome=true
+
+plugin.icepdf.IcePdfPlugin.version=0.1
+
+plugin.icepdf.IcePdfPlugin.depend.0=jdk 1.7.0
+plugin.icepdf.IcePdfPlugin.depend.1=jedit 05.00.99.00
+
+# list addition jedit plugin deps
+#plugin.icepdf.IcePdfPlugin.depend.2=plugin errorlist.ErrorListPlugin 2.1
+#plugin.icepdf.IcePdfPlugin.depend.3=plugin sidekick.SideKickPlugin 1.7
+
+# list needed jar dependencies
+plugin.icepdf.IcePdfPlugin.jars=\
+    icepdf-viewer.jar \
+    icepdf-core.jar
+
+
+
+
+# Menu
+plugin.icepdf.IcePdfPlugin.menu=\
+  icepdf-viewer-show \
+  icepdf-open-pdf
+
+icepdf-viewer-show.label=Show IcePdf Viewer
+icepdf-open-pdf.label=Open Associated Pdf
+
+# Dockable
+icepdf-viewer.title=IcePdf Viewer

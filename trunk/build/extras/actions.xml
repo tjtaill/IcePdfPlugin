@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE ACTIONS SYSTEM "actions.dtd">
+<ACTIONS>
+    <ACTION NAME="icepdf-viewer-show">
+        <CODE>
+            wm.addDockableWindow("icepdf-viewer");
+            wm.getDockableWindow("icepdf-viewer").focus();
+        </CODE>
+    </ACTION>
+    <ACTION NAME="icepdf-open-pdf">
+        <CODE>
+            icePdfViewer = w.getDockable("icepdf-viewer");
+            icePdfViewer.openPdf(buffer);
+        </CODE>
+    </ACTION>
+</ACTIONS>
