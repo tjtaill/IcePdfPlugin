@@ -1,24 +1,25 @@
 package icepdf;
 
-import com.sun.org.apache.xerces.internal.impl.PropertyManager;
 import org.gjt.sp.jedit.Buffer;
 import org.gjt.sp.jedit.EBComponent;
 import org.gjt.sp.jedit.EBMessage;
 import org.gjt.sp.jedit.View;
-import org.gjt.sp.jedit.textarea.*;
+import org.gjt.sp.jedit.gui.DefaultFocusComponent;
 import org.icepdf.core.pobjects.Document;
+import org.icepdf.core.pobjects.graphics.text.LineText;
+import org.icepdf.core.pobjects.graphics.text.PageText;
 import org.icepdf.core.pobjects.graphics.text.WordText;
 import org.icepdf.core.search.DocumentSearchController;
 import org.icepdf.ri.common.SwingController;
 import org.icepdf.ri.common.SwingViewBuilder;
-
-import org.gjt.sp.jedit.gui.DefaultFocusComponent;
-import org.icepdf.ri.common.views.DocumentViewController;
 import org.icepdf.ri.util.PropertiesManager;
 
 import javax.swing.*;
+
 import java.awt.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -91,24 +92,54 @@ public class DockableIcePdfViewer extends JPanel implements EBComponent, Default
     public void searchSelected(org.gjt.sp.jedit.textarea.TextArea textArea) {
         DocumentSearchController searchController =
                 swingController.getDocumentSearchController();
+        searchController.clearAllSearchHighlight();
         if ( textArea.getSelectionCount() < 1 )
             return;
         String selectedText = textArea.getSelectedText();
-        searchController.addSearchTerm(selectedText, true, true);
+        String[] words = selectedText.split("\\s|\\b");
+        ArrayList<String> searchWords = new ArrayList<>();
+        for(String word : words ) {
+            if (!word.isEmpty())
+                searchWords.add(word);
 
+        }
 
         Document document = swingController.getDocument();
         int currentPage = swingController.getCurrentPageNumber();
-        ArrayList<WordText> foundWords;
         for (int pageIndex = 0; pageIndex < document.getNumberOfPages();
              pageIndex++) {
-            foundWords = searchController.searchPage(pageIndex);
+            try {
+                PageText pageText = document.getPageText(pageIndex);
+                ArrayList<LineText> pageLines = pageText.getPageLines();
+                for( LineText lineText : pageLines ) {
+                    java.util.List<WordText> lineWords = lineText.getWords();
+                    int matched = 0;
 
-            if (foundWords != null){
-                swingController.goToDeltaPage( pageIndex - currentPage );
-                break;
+                    for(int i = 0; i < lineWords.size(); i++) {
+                        String word = lineWords.get(i).getText();
+                        if ( word.isEmpty() || word.matches("\\s+") )
+                            continue;
+                        for(int j = matched; j < searchWords.size(); j++ ) {
+                            if ( lineWords.get(i).getText().equals( searchWords.get(j) ) ) {
+                                matched++;
+                                break;
+                            } else {
+                                i += matched; // skip the number of words matched
+                                matched = 0;
+                                break;
+                            }
+                        }
+                        if ( matched == searchWords.size() ) {
+                            swingController.goToDeltaPage(pageIndex - currentPage);
+                            break;
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
+
     }
 
 
