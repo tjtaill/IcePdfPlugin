@@ -52,6 +52,7 @@ public class DockableIcePdfViewer extends JPanel implements EBComponent, Default
 
         SwingViewBuilder factory = new SwingViewBuilder(swingController, properties);
         icePdfViewer = factory.buildViewerPanel();
+        setLayout( new BorderLayout());
         add(icePdfViewer, BorderLayout.CENTER);
     }
 
