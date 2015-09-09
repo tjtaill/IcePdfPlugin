@@ -42,7 +42,7 @@ public class DockableIcePdfViewer extends JPanel implements EBComponent, Default
         properties.setBoolean(PropertiesManager.PROPERTY_SHOW_UTILITY_OPEN, Boolean.FALSE);
         properties.setBoolean(PropertiesManager.PROPERTY_SHOW_STATUSBAR_VIEWMODE, Boolean.FALSE);
         properties.setBoolean(PropertiesManager.PROPERTY_SHOW_TOOLBAR_TOOL, Boolean.FALSE);
-
+        properties.setBoolean(PropertiesManager.PROPERTY_HIDE_UTILITYPANE, Boolean.TRUE);
 
         try {
             swingController = new SwingController();
